@@ -12,15 +12,15 @@ import typing
 from abc import ABC, abstractmethod
 
 from collections import defaultdict
-from dataclasses import field, dataclass
+#from dataclasses import field, dataclass
 
 
-@dataclass
+#@dataclass
 class ItemsetCount:
-    itemset_count: int = 0
-    members: set = field(default_factory=set)
+    itemset_count = 0
+    members = set()#field(default_factory=set)
 
-    def increment_count(self, transaction_id: int):
+    def increment_count(self, transaction_id):
         self.itemset_count += 1
         self.members.add(transaction_id)
 
@@ -111,7 +111,7 @@ class _CounterWithIds(_ItemsetCounter):
         return counts, found_any
 
 
-def join_step(itemsets: typing.List[tuple]):
+def join_step(itemsets):
     """
     Join k length itemsets into k + 1 length itemsets.
 
@@ -179,7 +179,7 @@ def join_step(itemsets: typing.List[tuple]):
         i += skip
 
 
-def prune_step(itemsets: typing.Iterable[tuple], possible_itemsets: typing.List[tuple]):
+def prune_step(itemsets, possible_itemsets):
     """
     Prune possible itemsets whose subsets are not in the list of itemsets.
 
@@ -227,7 +227,7 @@ def prune_step(itemsets: typing.Iterable[tuple], possible_itemsets: typing.List[
             yield possible_itemset
 
 
-def apriori_gen(itemsets: typing.List[tuple]):
+def apriori_gen(itemsets):
     """
     Compute all possible k + 1 length supersets from k length itemsets.
 
@@ -253,11 +253,11 @@ def apriori_gen(itemsets: typing.List[tuple]):
 
 
 def itemsets_from_transactions(
-    transactions: typing.Union[typing.List[tuple], typing.Callable],
-    min_support: float,
-    max_length: int = 8,
-    verbosity: int = 0,
-    output_transaction_ids: bool = False,
+    transactions,
+    min_support,
+    max_length = 8,
+    verbosity = 0,
+    output_transaction_ids = False,
 ):
     """
     Compute itemsets from transactions by building the itemsets bottom up and
@@ -301,7 +301,7 @@ def itemsets_from_transactions(
     if not (isinstance(min_support, numbers.Number) and (0 <= min_support <= 1)):
         raise ValueError("`min_support` must be a number between 0 and 1.")
 
-    counter: typing.Union[_CounterWithIds, _Counter]  # Type info for mypy
+    #counter: typing.Union[_CounterWithIds, _Counter]  # Type info for mypy
     counter = _CounterWithIds() if (transactions and output_transaction_ids) else _Counter()
 
     wrong_transaction_type_msg = "`transactions` must be an iterable or a " "callable returning an iterable."
@@ -329,7 +329,7 @@ def itemsets_from_transactions(
 
     # Keep a dictionary stating whether to consider the row, this will allow
     # row-pruning later on if no information was retrieved earlier from it
-    use_transaction: typing.DefaultDict[int, bool] = defaultdict(lambda: True)
+    use_transaction = defaultdict(lambda: True)
 
     # STEP 1 - Generate all large itemsets of size 1
     # ----------------------------------------------

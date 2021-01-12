@@ -10,12 +10,12 @@ from efficient_apriori.rules import generate_rules_apriori
 
 
 def apriori(
-    transactions: typing.Union[typing.List[tuple], typing.Callable],
-    min_support: float = 0.5,
-    min_confidence: float = 0.5,
-    max_length: int = 8,
-    verbosity: int = 0,
-    output_transaction_ids: bool = False,
+    transactions,
+    min_support = 0.5,
+    min_confidence = 0.5,
+    max_length= 8,
+    verbosity = 0,
+    output_transaction_ids = False,
 ):
     """
     The classic apriori algorithm as described in 1994 by Agrawal et al.
@@ -60,7 +60,7 @@ def apriori(
     >>> rules
     [{a} -> {b}]
     """
-
+    print('itemsets_from_transactions')
     itemsets, num_trans = itemsets_from_transactions(
         transactions,
         min_support,
@@ -73,7 +73,7 @@ def apriori(
         itemsets_for_rules = _convert_to_counts(itemsets)
     else:
         itemsets_for_rules = itemsets
-
+    print('generate_rules_apriori')
     rules = generate_rules_apriori(itemsets_for_rules, min_confidence, num_trans, verbosity)
     return itemsets, list(rules)
 

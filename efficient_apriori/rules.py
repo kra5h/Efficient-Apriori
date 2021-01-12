@@ -20,12 +20,12 @@ class Rule(object):
 
     def __init__(
         self,
-        lhs: tuple,
-        rhs: tuple,
-        count_full: int = 0,
-        count_lhs: int = 0,
-        count_rhs: int = 0,
-        num_transactions: int = 0,
+        lhs,
+        rhs,
+        count_full = 0,
+        count_lhs = 0,
+        count_rhs = 0,
+        num_transactions = 0,
     ):
         """
         Initialize a new rule. This call is a thin wrapper around some data.
@@ -185,9 +185,9 @@ class Rule(object):
 
 
 def generate_rules_simple(
-    itemsets: typing.Dict[int, typing.Dict],
-    min_confidence: float,
-    num_transactions: int,
+    itemsets,
+    min_confidence,
+    num_transactions,
 ):
     """
     DO NOT USE. This is a simple top-down algorithm for generating association
@@ -208,7 +208,7 @@ def generate_rules_simple(
 
         # This algorithm returns duplicates, so we keep track of items yielded
         # in a set to avoid yielding duplicates
-        yielded: set = set()
+        yielded = set()
         yielded_add = yielded.add
 
         # Iterate over every itemset of the prescribed size
@@ -272,10 +272,10 @@ def _genrules(l_k, a_m, itemsets, min_conf, num_transactions):
 
 
 def generate_rules_apriori(
-    itemsets: typing.Dict[int, typing.Dict[tuple, int]],
-    min_confidence: float,
-    num_transactions: int,
-    verbosity: int = 0,
+    itemsets,
+    min_confidence,
+    num_transactions,
+    verbosity = 0,
 ):
     """
     Bottom up algorithm for generating association rules from itemsets, very
@@ -365,11 +365,11 @@ def generate_rules_apriori(
 
 
 def _ap_genrules(
-    itemset: tuple,
-    H_m: typing.List[tuple],
-    itemsets: typing.Dict[int, typing.Dict[tuple, int]],
-    min_conf: float,
-    num_transactions: int,
+    itemset,
+    H_m,
+    itemsets,
+    min_conf,
+    num_transactions,
 ):
     """
     Recursively build up rules by adding more items to the right hand side.

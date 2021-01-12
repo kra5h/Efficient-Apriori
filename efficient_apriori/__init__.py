@@ -25,6 +25,6 @@ def run_tests():
     pytest.main(args=[base, "--doctest-modules"])
 
 
-if (sys.version_info[0] < 3) or (sys.version_info[1] < 6):
-    msg = "The `efficient_apriori` package only works for Python 3.6+."
-    raise Exception(msg)
+#if (sys.version_info[0] < 3) or (sys.version_info[1] < 6):
+#    msg = "The `efficient_apriori` package only works for Python 3.6+."
+#    raise Exception(msg)
